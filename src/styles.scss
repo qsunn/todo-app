@@ -19,13 +19,18 @@ input {
 }
 
 $black: #1d1d1d;
-$addBlack: #3d3d3d;
+$addBlack: #9d9d9d;
 $white: #f2f2f2;
-$addWhite: #d9d9d9;
+$addWhite: #fff;
 
 .body {
     color: $black;
     background: $white;
+}
+
+.todo-item {
+    color: $black;
+    background: $addWhite;
 }
 
 .footer,
@@ -37,6 +42,6 @@ $addWhite: #d9d9d9;
 }
 
 .input-container__btn:hover {
-    color: $addBlack;
-    background: $addWhite;
+    color: $black;
+    background: $addBlack;
 }

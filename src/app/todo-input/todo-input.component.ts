@@ -12,7 +12,7 @@ export class TodoInputComponent implements OnInit {
   @Output() onAddItem: EventEmitter<string> = new EventEmitter();
 
   addItem() {
-    this.onAddItem.emit(this.inputValue);
+    this.inputValue ? this.onAddItem.emit(this.inputValue) : alert('wrong input');
     this.inputValue = '';
   }
 

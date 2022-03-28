@@ -1,0 +1,10 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 40px;
+    font-size: 14px;
+    &__copyright {
+        margin: 0;
+    }
+}

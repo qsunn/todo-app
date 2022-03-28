@@ -1,1 +1,47 @@
-/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+body { font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+input {
+    outline: none;
+    border: none;
+}
+
+$black: #1d1d1d;
+$addBlack: #9d9d9d;
+$white: #f2f2f2;
+$addWhite: #fff;
+
+.body {
+    color: $black;
+    background: $white;
+}
+
+.todo-item {
+    color: $black;
+    background: $addWhite;
+}
+
+.footer,
+.input-container__btn,
+.done-list__title,
+.todo-list__title {
+    color: $white;
+    background: $black;
+}
+
+.input-container__btn:hover {
+    color: $black;
+    background: $addBlack;
+}

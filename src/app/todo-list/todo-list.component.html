@@ -1,0 +1,19 @@
+<app-todo-input (onAddItem)="updateTodoList($event)"></app-todo-input>
+<div class="todo-list">
+    <div>
+        <h2 class="todo-list__title">
+            Todo
+        </h2>
+        <div *ngFor="let item of todoList">
+            <app-todo-item [todoItem]="item"></app-todo-item>
+        </div>
+    </div>
+    <div>
+        <h2 class="todo-list__title">
+            Done
+        </h2>
+        <div *ngFor="let item of doneList">
+            <app-todo-item [todoItem]="item"></app-todo-item>
+        </div>
+    </div>
+</div>

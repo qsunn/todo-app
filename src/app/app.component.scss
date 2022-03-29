@@ -12,3 +12,15 @@
         margin-bottom: 16px;
     }
 }
+
+@media (max-width: 840px) {
+    .container {
+        padding: 0 40px;
+    }
+}
+
+@media (max-width: 420px) {
+    .container {
+        padding: 0 24px;
+    }
+}

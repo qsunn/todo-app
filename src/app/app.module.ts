@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-
+import { MaterialModule } from './material/material.module';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { TodoInputComponent } from './todo-input/todo-input.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { TaskDetailsModalComponent } from './todo-list/task-details-modal/task-details-modal.component';
 
 @NgModule({
   declarations: [
@@ -19,16 +18,15 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     HeaderComponent,
     FooterComponent,
     TodoInputComponent,
-    TodoListComponent
+    TodoListComponent,
+    TaskDetailsModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatButtonModule,
     FormsModule,
-    MatIconModule,
-    DragDropModule
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

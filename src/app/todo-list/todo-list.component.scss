@@ -30,6 +30,12 @@
         &:active {
             cursor: grabbing;
         }
+        &.deletion {
+            animation: opacity .5s ease-in-out;
+        }
+        &--btn {
+           padding: 0 8px;
+        }
     }
     &__delete-btn {
         position: absolute;
@@ -38,6 +44,15 @@
     }
     .delete-icon {
         font-size: 16px;
+    }
+}
+
+@keyframes opacity {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
     }
 }
   

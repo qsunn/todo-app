@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { ITodoListItem } from './todo-list.model';
+import { MatDialog } from '@angular/material/dialog';
+import { TaskDetailsModalComponent } from './task-details-modal/task-details-modal.component';
+
 
 @Component({
   selector: 'app-todo-list',
@@ -8,20 +12,27 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 })
 export class TodoListComponent implements OnInit {
 
-  todoList: string[] = [];
-  doneList: string[] = [];
-  idx!: number;
+  todoList: ITodoListItem[] = [];
+  doneList: ITodoListItem[] = [];
 
   updateTodoList(name: string) {
-    this.todoList.push(name);
+    this.todoList.push({name: name, isDeleted: false, index: this.todoList.length});
   }
 
-  deleteTodoTask() {
-    this.todoList.splice(this.idx, 1);
+  deleteTodoTask(idx: number) {
+    this.todoList[idx].isDeleted = true;
+    setTimeout(() => {
+      this.todoList.splice(idx, 1);
+      this.todoList[idx].isDeleted = false;
+    }, 500)
   }
 
-  deleteDoneTask() {
-    this.doneList.splice(this.idx, 1);
+  deleteDoneTask(idx: number) {
+    this.doneList[idx].isDeleted = true;
+    setTimeout(() => {
+      this.doneList.splice(idx, 1);
+      this.doneList[idx].isDeleted = false;
+    }, 500)
   }
 
   clearDoneList() {
@@ -33,12 +44,29 @@ export class TodoListComponent implements OnInit {
     this.todoList.length = 0;
   }
 
-  constructor() { }
+  constructor(public dialog: MatDialog) {}
 
-  ngOnInit(): void {
+  openDialog() {
+    const dialogRef = this.dialog.open(TaskDetailsModalComponent, {
+      maxHeight: '100%',
+      width: '300px',
+      minHeight: '200px',
+      data: {
+        todo: this.todoList,
+        done: this.doneList
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  ngOnInit(): void {
+    this.todoList.push({name: 'have fun', isDeleted: false, index: this.todoList.length})
+  }
+
+  drop(event: CdkDragDrop<any>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {

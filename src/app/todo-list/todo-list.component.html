@@ -1,39 +1,35 @@
 <app-todo-input (onAddItem)="updateTodoList($event)"></app-todo-input>
 <div class="todo-list" cdkDropListGroup>
-    <div class="example-container">
-        <button class="todo-list__title-container done-btn" (click)="makeAllDone()">
-            <h2 class="todo-list__title">
-                Todo
-            </h2>
+  <div class="example-container">
+    <button class="todo-list__title-container done-btn" (click)="makeAllDone()">
+      <h2 class="todo-list__title">
+        Todo
+      </h2>
+    </button>
+    <div cdkDropList [cdkDropListData]="todoList" class="example-list" (cdkDropListDropped)="drop($event)">
+      <div class="example-box todo-list__item" *ngFor="let item of todoList; let idx = index" cdkDrag
+        [cdkDragData]="item" [ngClass]="{'deletion': item.isDeleted}">
+        <button class="todo-list__item--btn" (click)="openDialog()">{{item.name}}</button>
+        <button type="button" class="todo-list__delete-btn" (click)="deleteTodoTask(idx)">
+          <mat-icon class="delete-icon">close</mat-icon>
         </button>
-        <div cdkDropList
-        [cdkDropListData]="todoList"
-        class="example-list"
-        (cdkDropListDropped)="drop($event)">
-            <div class="example-box todo-list__item" *ngFor="let item of todoList; let idx = index" cdkDrag>
-                {{item}}
-                <button type="button" class="todo-list__delete-btn" (click)="deleteTodoTask()">
-                    <mat-icon class="delete-icon">close</mat-icon>
-                </button>
-            </div>
-        </div>
+      </div>
     </div>
-    <div class="example-container">
-        <button class="todo-list__title-container done-btn" (click)="clearDoneList()">
-            <h2 class="todo-list__title">
-                Done
-            </h2>
+  </div>
+  <div class="example-container">
+    <button class="todo-list__title-container done-btn" (click)="clearDoneList()">
+      <h2 class="todo-list__title">
+        Done
+      </h2>
+    </button>
+    <div cdkDropList [cdkDropListData]="doneList" class="example-list" (cdkDropListDropped)="drop($event)">
+      <div class="example-box todo-list__item" *ngFor="let item of doneList; let idx = index" cdkDrag
+        [cdkDragData]="item" [ngClass]="{'deletion': item.isDeleted}">
+        <button class="todo-list__item--btn" (click)="openDialog()">{{item.name}}</button>
+        <button type="button" class="todo-list__delete-btn" (click)="deleteDoneTask(idx)">
+          <mat-icon class="delete-icon">close</mat-icon>
         </button>
-        <div cdkDropList
-        [cdkDropListData]="doneList"
-        class="example-list"
-        (cdkDropListDropped)="drop($event)">
-            <div class="example-box todo-list__item" *ngFor="let item of doneList; let idx = index" cdkDrag>
-                {{item}}
-                <button type="button" class="todo-list__delete-btn" (click)="deleteDoneTask()">
-                    <mat-icon class="delete-icon">close</mat-icon>
-                </button>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 </div>

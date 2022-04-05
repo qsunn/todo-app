@@ -1,0 +1,52 @@
+.modal-container {
+    padding-top: 8px;
+    &__title {
+        font-weight: 600;
+        font-size: 12px;
+        margin: 0;
+    }
+    &__text {
+        margin: 0;
+    }
+    &__item {
+        padding: 8px 12px 10px 12px;
+        margin-bottom: 16px;
+        border-radius: 4px;
+        &:last-child {
+            margin: 0;
+            margin-bottom: 8px;
+        }
+    }
+}
+
+.modal-form {
+    width: 100%;
+}
+  
+.modal-full-width {
+    width: 100%;
+}
+
+.modal-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+    margin-top: 16px;
+}
+
+.edit-icon {
+    font-size: 18px;
+    padding-top: 4px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.error-message {
+    color: red;
+    font-size: 10px;
+    margin-top: 8px;
+}

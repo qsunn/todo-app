@@ -1,4 +1,4 @@
-html, body { height: 100%; }
+html, body { height: 100%; width: 100%; }
 body { font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 * {
@@ -18,30 +18,54 @@ input {
     border: none;
 }
 
-$black: #1d1d1d;
-$addBlack: #9d9d9d;
-$white: #f2f2f2;
-$addWhite: #fff;
-
-.body {
-    color: $black;
-    background: $white;
+button {
+    font: inherit;
+    color: inherit;
+    background: inherit;
+    border: none;
+    cursor: pointer;
+    transition: .1s ease-in-out;
 }
 
-.todo-item {
+$black: #222;
+$addBlack: #ccc;
+$addWhite: #eee;
+$white: #fff;
+
+.body {
     color: $black;
     background: $addWhite;
 }
 
+.todo-list__item {
+    color: $black;
+    background: $white;
+}
+
 .footer,
 .input-container__btn,
-.done-list__title,
-.todo-list__title {
+.todo-list__title-container {
     color: $white;
     background: $black;
+}
+
+.todo-list__title {
+    color: $white;
 }
 
 .input-container__btn:hover {
     color: $black;
     background: $addBlack;
+}
+
+.done-btn:hover {
+    .todo-list__title {
+        color: $black;
+    }
+    background: $addBlack;
+}
+
+.modal-container__item {
+    color: $black;
+    background: $addWhite;
 }

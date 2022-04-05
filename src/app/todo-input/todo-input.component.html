@@ -1,9 +1,11 @@
 <div class="input-container">
-    <div class="input-container__input-wrapper">
-        <input type="text" class="input-container__input-wrapper--input" autofocus [(ngModel)]="inputValue" (keydown.enter)="addItem()">
-        <button class="input-container__input-wrapper--btn" *ngIf="inputValue" mat-icon-button aria-label="Clear" (click)="inputValue=''">
-            <mat-icon>close</mat-icon>
-          </button>
-    </div>
-    <button mat-flat-button type="submit" class="input-container__btn" (click)="addItem()">Add</button>
+  <div class="input-container__input-wrapper">
+    <input type="text" class="input-container__input-wrapper--input" autofocus [(ngModel)]="inputValue"
+      (keydown.enter)="addItem()">
+    <button class="input-container__input-wrapper--btn" *ngIf="inputValue" mat-icon-button aria-label="Clear"
+      (click)="inputValue=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <button mat-flat-button type="submit" class="input-container__btn" (click)="addItem()">Add</button>
 </div>

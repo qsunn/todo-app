@@ -15,8 +15,30 @@ export class TodoListComponent implements OnInit {
   todoList: ITodoListItem[] = [];
   doneList: ITodoListItem[] = [];
 
+  constructor(public dialog: MatDialog) {}
+
+  ngOnInit(): void {
+    // this.todoList.push({name: 'have fun', isDeleted: false, index: this.todoList.length})
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(TaskDetailsModalComponent, {
+      maxHeight: '100%',
+      width: '300px',
+      minHeight: '200px',
+      data: {
+        todo: this.todoList,
+        done: this.doneList
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
   updateTodoList(name: string) {
-    this.todoList.push({name: name, isDeleted: false, index: this.todoList.length});
+    this.todoList.push({name: name, description: 'Description', importance: 'Easy', deadline: '04/04/2022', isDeleted: false, index: this.todoList.length});
   }
 
   deleteTodoTask(idx: number) {
@@ -42,28 +64,6 @@ export class TodoListComponent implements OnInit {
   makeAllDone() {
     this.doneList = this.doneList.concat(this.todoList);
     this.todoList.length = 0;
-  }
-
-  constructor(public dialog: MatDialog) {}
-
-  openDialog() {
-    const dialogRef = this.dialog.open(TaskDetailsModalComponent, {
-      maxHeight: '100%',
-      width: '300px',
-      minHeight: '200px',
-      data: {
-        todo: this.todoList,
-        done: this.doneList
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-
-  ngOnInit(): void {
-    this.todoList.push({name: 'have fun', isDeleted: false, index: this.todoList.length})
   }
 
   drop(event: CdkDragDrop<any>) {

@@ -6,6 +6,7 @@ import {
   HttpHeaders,
   HttpErrorResponse,
 } from '@angular/common/http';
+import { ITodoListItem } from '../todo-list/todo-list.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -19,8 +20,8 @@ export class ApiService {
     return this.http.post(url, data).pipe(catchError(this.errorMgmt));
   }
   // Get all employees
-  getTasks() {
-    return this.http.get(`${this.baseUri}`);
+  getTasks(): Observable<ITodoListItem[]> {
+    return this.http.get<ITodoListItem[]>(`${this.baseUri}`);
   }
   // Get employee
   getTaskById(id: any): Observable<any> {

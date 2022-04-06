@@ -1,4 +1,4 @@
-<app-todo-input (onAddItem)="updateTodoList($event)"></app-todo-input>
+<app-todo-input (refresh)="refresh()"></app-todo-input>
 <div class="todo-list" cdkDropListGroup>
   <div class="task-container">
     <button class="todo-list__title-container done-btn" (click)="makeAllDone()" matTooltip="Move all to done" matTooltipPosition="above">
@@ -7,26 +7,26 @@
       </h2>
     </button>
     <div cdkDropList [cdkDropListData]="todoList" class="task-list" (cdkDropListDropped)="drop($event)">
-      <div class="task-box todo-list__item" *ngFor="let item of todoList; let idx = index" cdkDrag
+      <div class="task-box todo-list__item" *ngFor="let item of todoList" cdkDrag
         [cdkDragData]="item" [ngClass]="{'deletion': item.isDeleted}">
-        <button class="todo-list__item--btn" (click)="openDialog()">{{item.name}}</button>
-        <button type="button" class="todo-list__delete-btn" (click)="deleteTodoTask(idx)">
+        <button class="todo-list__item--btn" (click)="openDialog(item)">{{item.name}}</button>
+        <button type="button" class="todo-list__delete-btn" (click)="deleteTask(item)">
           <mat-icon class="delete-icon">close</mat-icon>
         </button>
       </div>
     </div>
   </div>
   <div class="task-container">
-    <button class="todo-list__title-container done-btn" (click)="clearDoneList()" matTooltip="Delete all" matTooltipPosition="above">
+    <button class="todo-list__title-container done-btn" (click)="deleteAllTasks(doneList)" matTooltip="Delete all" matTooltipPosition="above">
       <h2 class="todo-list__title">
         Done
       </h2>
     </button>
     <div cdkDropList [cdkDropListData]="doneList" class="task-list" (cdkDropListDropped)="drop($event)">
-      <div class="task-box todo-list__item" *ngFor="let item of doneList; let idx = index" cdkDrag
+      <div class="task-box todo-list__item" *ngFor="let item of doneList" cdkDrag
         [cdkDragData]="item" [ngClass]="{'deletion': item.isDeleted}">
-        <button class="todo-list__item--btn" (click)="openDialog()">{{item.name}}</button>
-        <button type="button" class="todo-list__delete-btn" (click)="deleteDoneTask(idx)">
+        <button class="todo-list__item--btn" (click)="openDialog(item)">{{item.name}}</button>
+        <button type="button" class="todo-list__delete-btn" (click)="deleteTask(item)">
           <mat-icon class="delete-icon">close</mat-icon>
         </button>
       </div>

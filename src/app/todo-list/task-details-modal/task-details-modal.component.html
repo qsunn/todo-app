@@ -1,63 +1,62 @@
 <div class="modal-container">
-  <div *ngIf="!isEditorMode else editorMode" class="modal-container--top">
-    <div class="modal-container__item">
-      <h3 class="modal-container__title">Task</h3>
-      <p class="modal-container__text">{{taskName}}</p>
+    <div *ngIf="!isEditorMode else editorMode" class="modal-container--top">
+        <div class="modal-container__item">
+            <h3 class="modal-container__title">Task</h3>
+            <p class="modal-container__text">{{this.data.name}}</p>
+        </div>
+        <div class="modal-container__item">
+            <h3 class="modal-container__title">Description</h3>
+            <p class="modal-container__text">{{this.data.description}}</p>
+        </div>
+        <div class="modal-container__item">
+            <h3 class="modal-container__title">Importance</h3>
+            <p class="modal-container__text">{{this.data.importance}}</p>
+        </div>
+        <div class="modal-container__item">
+            <h3 class="modal-container__title">Deadline</h3>
+            <p class="modal-container__text">{{this.data.deadline}}</p>
+        </div>
     </div>
-    <div class="modal-container__item">
-      <h3 class="modal-container__title">Description</h3>
-      <p class="modal-container__text">{{description}}</p>
-    </div>
-    <div class="modal-container__item">
-      <h3 class="modal-container__title">Importance</h3>
-      <p class="modal-container__text">Easy</p>
-    </div>
-    <div class="modal-container__item">
-      <h3 class="modal-container__title">Deadline</h3>
-      <p class="modal-container__text">{{today | date: 'dd MMMM yyyy'}}</p>
-    </div>
-  </div>
-  <ng-template #editorMode>
-    <div class="modal-container--top">
-      <form [formGroup]="taskForm" class="modal-form">
-        <mat-form-field class="modal-full-width" appearance="fill">
-          <mat-label>Task name:</mat-label>
-          <input matInput placeholder="Task name" [value]="taskName" name="name" formControlName="name">
-          <span *ngIf="name && name.invalid" class="error-message">Task name can't be empty.</span>
-        </mat-form-field>
-        <mat-form-field class="modal-full-width" appearance="fill">
-          <mat-label>Task description:</mat-label>
-          <textarea matInput placeholder="Task description" [value]="description" name="description"
-            formControlName="description"></textarea>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Importance:</mat-label>
-          <mat-select [(value)]="importance" name="importance" formControlName="importance">
-            <mat-option value="option1">Strong</mat-option>
-            <mat-option value="option2">Medium</mat-option>
-            <mat-option value="option3">Easy</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Deadline:</mat-label>
-          <input matInput [matDatepicker]="picker" [min]="today" [value]="today" name="deadline"
-            formControlName="deadline">
-          <mat-datepicker-toggle matSuffix [for]="picker">
-            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-          </mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </form>
-    </div>
-  </ng-template>
-  <mat-dialog-actions class="modal-buttons">
-    <button type="button" (click)="editorModeChange()">
-      <mat-icon class="edit-icon">edit</mat-icon>
-    </button>
-    <div>
-      <button mat-flat-button [mat-dialog-close]="false" color="primary">Close</button>
-      <button *ngIf="isEditorMode" mat-flat-button [mat-dialog-close]="true" cdkFocusInitial color="primary"
-        [disabled]="taskForm.invalid" (click)="updateTask()">Save</button>
-    </div>
-  </mat-dialog-actions>
+    <ng-template #editorMode>
+        <div class="modal-container--top">
+            <form [formGroup]="taskForm" class="modal-form">
+                <mat-form-field class="modal-full-width" appearance="fill">
+                    <mat-label>Task name:</mat-label>
+                    <input matInput placeholder="Task name" name="name" formControlName="name">
+                    <span *ngIf="name && name.invalid" class="error-message">Task name can't be empty.</span>
+                </mat-form-field>
+                <mat-form-field class="modal-full-width" appearance="fill">
+                    <mat-label>Task description:</mat-label>
+                    <textarea matInput placeholder="Task description" name="description"
+                        formControlName="description"></textarea>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Importance:</mat-label>
+                    <mat-select name="importance" formControlName="importance">
+                        <mat-option value="option1">Strong</mat-option>
+                        <mat-option value="option2">Medium</mat-option>
+                        <mat-option value="option3">Easy</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Deadline:</mat-label>
+                    <input matInput [matDatepicker]="picker" [min]="today" name="deadline" formControlName="deadline">
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </form>
+        </div>
+    </ng-template>
+    <mat-dialog-actions class="modal-buttons">
+        <button type="button" (click)="editorModeChange()">
+            <mat-icon class="edit-icon">edit</mat-icon>
+        </button>
+        <div>
+            <button mat-flat-button [mat-dialog-close]="false" color="primary">Close</button>
+            <button *ngIf="isEditorMode" type="submit" mat-flat-button [mat-dialog-close]="true" cdkFocusInitial
+                color="primary" [disabled]="taskForm.invalid" (click)="updateTask(data)">Save</button>
+        </div>
+    </mat-dialog-actions>
 </div>

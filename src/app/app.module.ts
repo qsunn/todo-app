@@ -13,6 +13,7 @@ import { TodoListComponent } from './todo-list/todo-list.component';
 import { TaskDetailsModalComponent } from './todo-list/task-details-modal/task-details-modal.component';
 
 import { ApiService } from './service/api.service';
+import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,9 +30,10 @@ import { ApiService } from './service/api.service';
     BrowserAnimationsModule,
     FormsModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, HttpClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

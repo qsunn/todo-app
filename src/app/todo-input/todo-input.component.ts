@@ -8,12 +8,12 @@ import { ApiService } from '../service/api.service';
     styleUrls: ['./todo-input.component.scss'],
 })
 export class TodoInputComponent implements OnInit {
-    @Output() refresh: EventEmitter<any> = new EventEmitter();
-    @Output() updateTask: EventEmitter<any> = new EventEmitter();
+    @Output() taskCreated: EventEmitter<any> = new EventEmitter();
 
     inputValue = new FormControl('');
     today = new Date();
-    deadline = this.today.setDate(this.today.getDate() + 1);
+    deadline = new Date();
+
 
     constructor(private apiService: ApiService) {}
 
@@ -24,20 +24,24 @@ export class TodoInputComponent implements OnInit {
     }
 
     createTask() {
+        this.deadline.setDate(this.today.getDate() + 1);
         let input = {
             name: this.inputValue.value,
             description: '-',
             importance: 'Easy',
-            deadline: this.today,
+            deadline: this.deadline,
             isDeleted: false,
-            isCompleted: false
+            isCompleted: false,
         };
-        this.apiService
-            .createTask(input)
-            .subscribe((result) => {
-                console.log(result);
-            });
-        this.clearInput();
-        setTimeout(() => this.refresh.emit(), 0);
+        this.apiService.createTask(input).subscribe({
+            next: result => {
+            console.log(result);
+            this.clearInput();
+            this.taskCreated.emit();
+            },
+            error: error => {
+                console.log('Empty input');
+            }
+        });
     }
 }

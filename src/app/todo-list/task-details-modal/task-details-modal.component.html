@@ -6,7 +6,7 @@
         </div>
         <div class="modal-container__item">
             <h3 class="modal-container__title">Description</h3>
-            <p class="modal-container__text">{{this.data.description}}</p>
+            <p class="modal-container__text">{{this.data.description ? this.data.description : '-'}}</p>
         </div>
         <div class="modal-container__item">
             <h3 class="modal-container__title">Importance</h3>
@@ -22,8 +22,10 @@
             <form [formGroup]="taskForm" class="modal-form">
                 <mat-form-field class="modal-full-width" appearance="fill">
                     <mat-label>Task name:</mat-label>
-                    <input matInput placeholder="Task name" name="name" formControlName="name">
-                    <span *ngIf="name && name.invalid" class="error-message">Task name can't be empty.</span>
+                    <input matInput required placeholder="Task name" name="name" formControlName="name">
+                    <mat-error>
+                        Name can't be empty.
+                    </mat-error>
                 </mat-form-field>
                 <mat-form-field class="modal-full-width" appearance="fill">
                     <mat-label>Task description:</mat-label>

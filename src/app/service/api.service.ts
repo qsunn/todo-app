@@ -47,6 +47,21 @@ export class ApiService {
       .delete(url, { headers: this.headers })
       .pipe(catchError(this.errorMgmt));
   }
+
+  deleteAllTasks(): Observable<any> {
+    let url = `${this.baseUri}/delete/completed`;
+    return this.http
+      .delete(url, { headers: this.headers })
+      .pipe(catchError(this.errorMgmt));
+  }
+
+  markAllDone(): Observable<any> {
+    let url = `${this.baseUri}/update/completed`;
+    return this.http
+      .put(url, { headers: this.headers })
+      .pipe(catchError(this.errorMgmt));
+  }
+
   // Error handling
   errorMgmt(error: HttpErrorResponse) {
     let errorMessage = '';

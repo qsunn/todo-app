@@ -1,4 +1,4 @@
-<app-todo-input (refresh)="refresh()"></app-todo-input>
+<app-todo-input (taskCreated)="getAllTasks()"></app-todo-input>
 <div class="todo-list" cdkDropListGroup>
   <div class="task-container">
     <button class="todo-list__title-container done-btn" (click)="makeAllDone()" matTooltip="Move all to done" matTooltipPosition="above">
@@ -17,7 +17,7 @@
     </div>
   </div>
   <div class="task-container">
-    <button class="todo-list__title-container done-btn" (click)="deleteAllTasks(doneList)" matTooltip="Delete all" matTooltipPosition="above">
+    <button class="todo-list__title-container done-btn" (click)="deleteAllTasks()" matTooltip="Delete all" matTooltipPosition="above">
       <h2 class="todo-list__title">
         Done
       </h2>

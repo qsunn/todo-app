@@ -8,6 +8,7 @@ import { ITodoListItem } from './todo-list.model';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskDetailsModalComponent } from './task-details-modal/task-details-modal.component';
 import { ApiService } from '../service/api.service';
+import { finalize } from 'rxjs';
 
 @Component({
     selector: 'app-todo-list',
@@ -20,89 +21,89 @@ export class TodoListComponent implements OnInit {
 
     task!: ITodoListItem;
 
-    constructor(
-        public dialog: MatDialog,
-        private apiService: ApiService
-        ) {}
+    constructor(public dialog: MatDialog, private apiService: ApiService) {}
 
     ngOnInit(): void {
-        this.refresh();
-    }
-
-    refresh() {
-        this.todoList.length = 0;
-        this.doneList.length = 0;
         this.getAllTasks();
     }
 
     openDialog(item: ITodoListItem) {
         const dialogRef = this.dialog.open(TaskDetailsModalComponent, {
             width: '300px',
-            data: item
+            data: item,
         });
 
         dialogRef.afterClosed().subscribe((result) => {
             console.log(`Dialog result: ${result}`);
-            // if (result) {
-            //     console.log(item)
-            //     this.updateTask(item);
-            // }
+            if (result) {
+                this.getAllTasks();
+            }
         });
     }
 
     getAllTasks() {
         this.apiService.getTasks().subscribe((tasks) => {
-            let todoTasks = tasks.filter((item) => !item.isCompleted);
-            let doneTasks = tasks.filter((item) => item.isCompleted);
-            todoTasks.forEach((item) => this.todoList.push(item));
-            doneTasks.forEach((item) => this.doneList.push(item));
+            if (tasks.length) {
+                this.todoList = tasks.filter((item) => !item.isCompleted);
+                this.doneList = tasks.filter((item) => item.isCompleted);
+            } else {
+                this.todoList = [];
+                this.doneList = [];
+            }
             console.log(tasks);
         });
     }
 
     getTask(item: ITodoListItem) {
-        this.apiService
-            .getTaskById(item.id)
-            .subscribe((result) => {
-                this.task = result;
-                console.log(result);
-            });
+        this.apiService.getTaskById(item.id).subscribe((result) => {
+            this.task = result;
+            console.log(result);
+        });
     }
 
-    updateTask(item: ITodoListItem) {
-        this.apiService
-            .updateTask(item.id, item)
-            .subscribe((result) => {
-                console.log(result);
-            });
+    changeIsCompleted(item: ITodoListItem) {
+        item.isCompleted = !item.isCompleted;
+        this.apiService.updateTask(item.id, item).subscribe((result) => {
+            console.log(result);
+        });
     }
 
     deleteTask(item: ITodoListItem) {
         console.log(item);
-        item.isDeleted = !item.isDeleted;
         this.apiService.deleteTaskById(item.id).subscribe((result) => {
             console.log(result);
+            item.isDeleted = !item.isDeleted;
             setTimeout(() => {
-                this.ngOnInit();
-            }, 500)
-        })
+                this.getAllTasks();
+            }, 500);
+        });
     }
 
-    deleteAllTasks(items: ITodoListItem[]) {
-        items.forEach(item => {
-            item.isDeleted = !item.isDeleted;
-            this.apiService.deleteTaskById(item.id).subscribe((result) => console.log(result));
-        })
-        setTimeout(() => this.refresh(), 0);
+    deleteAllTasks() {
+        this.apiService.deleteAllTasks().subscribe((result) => {
+            console.log(result);
+            this.getAllTasks();
+        });
     }
 
     makeAllDone() {
-        this.todoList.forEach((item) => {
-            item.isCompleted = !item.isCompleted;
-            this.updateTask(item);
-        });
-        this.doneList = this.doneList.concat(this.todoList);
-        this.todoList.length = 0;
+        this.apiService
+            .markAllDone()
+            .pipe(finalize(() => {
+                console.log('pipe (finalize)')
+            }))
+            .subscribe({
+                next: result => {
+                    this.getAllTasks();
+                    console.log('subscribe (result)')
+                },
+                error: error => {
+                    console.log('subscribe (error)')
+                },
+                complete: () => {
+                    console.log('subscribe (complete)')
+                }
+            });
     }
 
     drop(event: CdkDragDrop<ITodoListItem[]>) {
@@ -119,8 +120,7 @@ export class TodoListComponent implements OnInit {
                 event.previousIndex,
                 event.currentIndex
             );
-            event.item.data.isCompleted = !event.item.data.isCompleted;
-            this.updateTask(event.item.data);
+            this.changeIsCompleted(event.item.data);
         }
     }
 }

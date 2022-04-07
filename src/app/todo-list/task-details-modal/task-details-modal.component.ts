@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/api.service';
 import { ITodoListItem } from '../todo-list.model';
@@ -12,21 +12,35 @@ import { ITodoListItem } from '../todo-list.model';
 export class TaskDetailsModalComponent implements OnInit {
     isEditorMode = false;
     today = new Date();
-
-    taskForm = this.fb.group({
-        name: [this.data.name, Validators.required],
-        description: [this.data.description.toString() ? this.data.description : this.data.description = '-'],
-        importance: [this.data.importance],
-        deadline: [this.data.deadline],
-    });
-
+    taskForm: FormGroup;
+    
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: ITodoListItem,
         private fb: FormBuilder,
         private apiService: ApiService
-    ) {}
+    ) {
+        this.taskForm = this.fb.group({
+            name: new FormControl('', Validators.required),
+            description: new FormControl(''),
+            importance: new FormControl(''),
+            deadline: new FormControl(''),
+        });
+    }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        if (this.data) {
+            this.setFormValue();
+        }
+    }
+
+    setFormValue() {
+        this.taskForm.setValue({
+            name: this.data.name,
+            description: this.data.description,
+            importance: this.data.importance,
+            deadline: this.data.deadline
+        })
+    }
 
     editorModeChange(): void {
         this.isEditorMode = !this.isEditorMode;
@@ -38,10 +52,6 @@ export class TaskDetailsModalComponent implements OnInit {
             .subscribe((result) => {
                 console.log(result);
             });
-        window.location.reload();
     }
 
-    get name() {
-        return this.taskForm.get('name');
-    }
 }

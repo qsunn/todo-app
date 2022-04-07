@@ -26,8 +26,8 @@ export class TodoInputComponent implements OnInit {
     createTask() {
         let input = {
             name: this.inputValue.value,
-            description: 'No description',
-            importance: 'option3',
+            description: '-',
+            importance: 'Easy',
             deadline: this.today,
             isDeleted: false,
             isCompleted: false
@@ -38,6 +38,6 @@ export class TodoInputComponent implements OnInit {
                 console.log(result);
             });
         this.clearInput();
-        this.refresh.emit();
+        setTimeout(() => this.refresh.emit(), 0);
     }
 }

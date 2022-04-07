@@ -1,11 +1,5 @@
-import { Component, OnInit, Inject, Input, Output } from '@angular/core';
-import {
-    FormGroup,
-    FormControl,
-    Validators,
-    FormBuilder,
-    FormArray,
-} from '@angular/forms';
+import { Component, OnInit, Inject } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/api.service';
 import { ITodoListItem } from '../todo-list.model';
@@ -20,8 +14,8 @@ export class TaskDetailsModalComponent implements OnInit {
     today = new Date();
 
     taskForm = this.fb.group({
-        name: [this.data.name, Validators.minLength(1)],
-        description: [this.data.description],
+        name: [this.data.name, Validators.required],
+        description: [this.data.description.toString() ? this.data.description : this.data.description = '-'],
         importance: [this.data.importance],
         deadline: [this.data.deadline],
     });
@@ -38,11 +32,11 @@ export class TaskDetailsModalComponent implements OnInit {
         this.isEditorMode = !this.isEditorMode;
     }
 
-    updateTask(item: any) {
+    updateTask(item: ITodoListItem) {
         this.apiService
             .updateTask(item.id, this.taskForm.value)
             .subscribe((result) => {
-                console.log(result)
+                console.log(result);
             });
         window.location.reload();
     }

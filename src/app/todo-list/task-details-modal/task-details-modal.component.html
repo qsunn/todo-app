@@ -14,7 +14,7 @@
         </div>
         <div class="modal-container__item">
             <h3 class="modal-container__title">Deadline</h3>
-            <p class="modal-container__text">{{this.data.deadline}}</p>
+            <p class="modal-container__text">{{this.data.deadline.toString() | date: 'dd/MM/yyyy'}}</p>
         </div>
     </div>
     <ng-template #editorMode>
@@ -33,9 +33,9 @@
                 <mat-form-field appearance="fill">
                     <mat-label>Importance:</mat-label>
                     <mat-select name="importance" formControlName="importance">
-                        <mat-option value="option1">Strong</mat-option>
-                        <mat-option value="option2">Medium</mat-option>
-                        <mat-option value="option3">Easy</mat-option>
+                        <mat-option value="Strong">Strong</mat-option>
+                        <mat-option value="Medium">Medium</mat-option>
+                        <mat-option value="Easy">Easy</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="fill">

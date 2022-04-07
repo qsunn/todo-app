@@ -18,10 +18,12 @@ export class TodoListComponent implements OnInit {
     todoList: ITodoListItem[] = [];
     doneList: ITodoListItem[] = [];
 
-    task: any;
-    id: any;
+    task!: ITodoListItem;
 
-    constructor(public dialog: MatDialog, private apiService: ApiService) {}
+    constructor(
+        public dialog: MatDialog,
+        private apiService: ApiService
+        ) {}
 
     ngOnInit(): void {
         this.refresh();
@@ -33,7 +35,7 @@ export class TodoListComponent implements OnInit {
         this.getAllTasks();
     }
 
-    openDialog(item: any) {
+    openDialog(item: ITodoListItem) {
         const dialogRef = this.dialog.open(TaskDetailsModalComponent, {
             width: '300px',
             data: item
@@ -52,13 +54,13 @@ export class TodoListComponent implements OnInit {
         this.apiService.getTasks().subscribe((tasks) => {
             let todoTasks = tasks.filter((item) => !item.isCompleted);
             let doneTasks = tasks.filter((item) => item.isCompleted);
-            todoTasks.map((item) => this.todoList.push(item));
-            doneTasks.map((item) => this.doneList.push(item));
+            todoTasks.forEach((item) => this.todoList.push(item));
+            doneTasks.forEach((item) => this.doneList.push(item));
             console.log(tasks);
         });
     }
 
-    getTask(item: any) {
+    getTask(item: ITodoListItem) {
         this.apiService
             .getTaskById(item.id)
             .subscribe((result) => {
@@ -67,16 +69,15 @@ export class TodoListComponent implements OnInit {
             });
     }
 
-    updateTask(item: any) {
+    updateTask(item: ITodoListItem) {
         this.apiService
             .updateTask(item.id, item)
             .subscribe((result) => {
-                item = result;
-                console.log(result)
+                console.log(result);
             });
     }
 
-    deleteTask(item: any) {
+    deleteTask(item: ITodoListItem) {
         console.log(item);
         item.isDeleted = !item.isDeleted;
         this.apiService.deleteTaskById(item.id).subscribe((result) => {
@@ -92,7 +93,7 @@ export class TodoListComponent implements OnInit {
             item.isDeleted = !item.isDeleted;
             this.apiService.deleteTaskById(item.id).subscribe((result) => console.log(result));
         })
-        this.refresh()
+        setTimeout(() => this.refresh(), 0);
     }
 
     makeAllDone() {
@@ -104,7 +105,7 @@ export class TodoListComponent implements OnInit {
         this.todoList.length = 0;
     }
 
-    drop(event: CdkDragDrop<any>) {
+    drop(event: CdkDragDrop<ITodoListItem[]>) {
         if (event.previousContainer === event.container) {
             moveItemInArray(
                 event.container.data,

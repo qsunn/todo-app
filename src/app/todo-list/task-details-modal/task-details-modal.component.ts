@@ -1,60 +1,57 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ApiService } from 'src/app/service/api.service';
 import { ITodoListItem } from '../todo-list.model';
 
 @Component({
-  selector: 'app-task-details-modal',
-  templateUrl: './task-details-modal.component.html',
-  styleUrls: ['./task-details-modal.component.scss']
+    selector: 'app-task-details-modal',
+    templateUrl: './task-details-modal.component.html',
+    styleUrls: ['./task-details-modal.component.scss'],
 })
 export class TaskDetailsModalComponent implements OnInit {
+    isEditorMode = false;
+    today = new Date();
+    taskForm: FormGroup;
+    
+    constructor(
+        @Inject(MAT_DIALOG_DATA) public data: ITodoListItem,
+        private fb: FormBuilder,
+        private apiService: ApiService
+    ) {
+        this.taskForm = this.fb.group({
+            name: new FormControl('', Validators.required),
+            description: new FormControl(''),
+            importance: new FormControl(''),
+            deadline: new FormControl(''),
+        });
+    }
 
-  isEditorMode = false;
-  taskName = 'Task Name';
-  description = 'Description';
-  importance = 'option3';
-  today = new Date();
+    ngOnInit(): void {
+        if (this.data) {
+            this.setFormValue();
+        }
+    }
 
-  taskForm = this.fb.group({
-    name: [this.taskName, Validators.minLength(1)],
-    description: [this.description],
-    importance: [this.importance],
-    deadline: [this.today],
-    taskData: this.fb.array([
-      this.fb.control('')
-    ])
-  })
+    setFormValue() {
+        this.taskForm.setValue({
+            name: this.data.name,
+            description: this.data.description,
+            importance: this.data.importance,
+            deadline: this.data.deadline
+        })
+    }
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: {todo: ITodoListItem[], done: ITodoListItem[]},
-    private fb: FormBuilder
-    ) { }
+    editorModeChange(): void {
+        this.isEditorMode = !this.isEditorMode;
+    }
 
-  ngOnInit(): void {
-  }
+    updateTask(item: ITodoListItem) {
+        this.apiService
+            .updateTask(item.id, this.taskForm.value)
+            .subscribe((result) => {
+                console.log(result);
+            });
+    }
 
-  editorModeChange(): void {
-    this.isEditorMode = !this.isEditorMode;
-  }
-
-  updateTask() {
-    console.log(this.taskForm.value)
-    // this.apiService.updateTask(this.taskForm ,this.taskForm.getRawValue()).subscribe(result => {
-    //   console.log(result)
-    // })
-  }
-
-  get name() {
-    return this.taskForm.get("name")
-  }
-
-  get taskData() {
-    return this.taskForm.get('taskData') as FormArray;
-  }
-
-  addTaskData() {
-    this.taskData.push(this.fb.control(''));
-  }
-  
 }

@@ -6,6 +6,7 @@ import {
   HttpHeaders,
   HttpErrorResponse,
 } from '@angular/common/http';
+import { ITodoListItem } from '../todo-list/todo-list.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -19,8 +20,8 @@ export class ApiService {
     return this.http.post(url, data).pipe(catchError(this.errorMgmt));
   }
   // Get all employees
-  getTasks() {
-    return this.http.get(`${this.baseUri}`);
+  getTasks(): Observable<ITodoListItem[]> {
+    return this.http.get<ITodoListItem[]>(`${this.baseUri}`);
   }
   // Get employee
   getTaskById(id: any): Observable<any> {
@@ -46,6 +47,21 @@ export class ApiService {
       .delete(url, { headers: this.headers })
       .pipe(catchError(this.errorMgmt));
   }
+
+  deleteAllTasks(): Observable<any> {
+    let url = `${this.baseUri}/delete/completed`;
+    return this.http
+      .delete(url, { headers: this.headers })
+      .pipe(catchError(this.errorMgmt));
+  }
+
+  markAllDone(): Observable<any> {
+    let url = `${this.baseUri}/update/completed`;
+    return this.http
+      .put(url, { headers: this.headers })
+      .pipe(catchError(this.errorMgmt));
+  }
+
   // Error handling
   errorMgmt(error: HttpErrorResponse) {
     let errorMessage = '';

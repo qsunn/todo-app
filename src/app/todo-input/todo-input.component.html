@@ -1,11 +1,11 @@
 <div class="input-container">
   <div class="input-container__input-wrapper">
-    <input type="text" class="input-container__input-wrapper--input" autofocus [(ngModel)]="inputValue"
-      (keydown.enter)="addItem()">
-    <button class="input-container__input-wrapper--btn" *ngIf="inputValue" mat-icon-button aria-label="Clear"
-      (click)="inputValue=''">
+    <input type="text" class="input-container__input-wrapper--input" autofocus [formControl]="inputValue"
+      (keydown.enter)="createTask()">
+    <button class="input-container__input-wrapper--btn" *ngIf="inputValue.value" mat-icon-button aria-label="Clear"
+      (click)="clearInput()">
       <mat-icon>close</mat-icon>
     </button>
   </div>
-  <button mat-flat-button type="submit" class="input-container__btn" (click)="addItem()">Add</button>
+  <button mat-flat-button type="submit" class="input-container__btn" (click)="createTask()">Add</button>
 </div>

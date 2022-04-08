@@ -1,0 +1,45 @@
+<div *ngIf="!data.isEmpty else noTasks" class="confirm-modal-container">
+    <h2 mat-dialog-title>
+        Are you sure?
+    </h2>
+    <mat-dialog-content class="mat-typography">
+        <p *ngIf="!data.doneCase else deleteCase">
+            Move all task to done
+        </p>
+        <ng-template #deleteCase>
+            <p>
+                Delete all done tasks
+            </p>
+        </ng-template>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-button [mat-dialog-close]="false">
+            Nah
+        </button>
+        <button mat-button [mat-dialog-close]="true" cdkFocusInitial>
+            Yeah
+        </button>
+    </mat-dialog-actions>
+</div>
+<ng-template #noTasks>
+    <div class="confirm-modal-container">
+        <h2 mat-dialog-title>
+            No tasks
+        </h2>
+        <mat-dialog-content class="mat-typography">
+            <p *ngIf="!data.doneCase else deleteCase">
+                No todo tasks
+            </p>
+            <ng-template #deleteCase>
+                <p>
+                    No done tasks
+                </p>
+            </ng-template>
+        </mat-dialog-content>
+        <mat-dialog-actions>
+            <button mat-button mat-dialog-close cdkFocusInitial>
+                Okay
+            </button>
+        </mat-dialog-actions>
+    </div>
+</ng-template>

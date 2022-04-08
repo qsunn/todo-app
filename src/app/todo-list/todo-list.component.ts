@@ -7,6 +7,7 @@ import {
 import { ITodoListItem } from './todo-list.model';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskDetailsModalComponent } from './task-details-modal/task-details-modal.component';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { ApiService } from '../service/api.service';
 import { finalize } from 'rxjs';
 
@@ -19,9 +20,11 @@ export class TodoListComponent implements OnInit {
     todoList: ITodoListItem[] = [];
     doneList: ITodoListItem[] = [];
 
-    task!: ITodoListItem;
+    doneCase!: Boolean;
+    isEmpty!: Boolean;
+    // task!: ITodoListItem;
 
-    constructor(public dialog: MatDialog, private apiService: ApiService) {}
+    constructor(public dialog: MatDialog, private apiService: ApiService) { }
 
     ngOnInit(): void {
         this.getAllTasks();
@@ -41,6 +44,34 @@ export class TodoListComponent implements OnInit {
         });
     }
 
+    openConfirmModal(event: any, doneList: ITodoListItem[]) {
+        switch (event.target.innerText) {
+            case 'Todo': 
+                this.doneCase = false;
+                this.todoList.length ? this.isEmpty = false : this.isEmpty = true;
+                break;
+            case 'Done':
+                this.doneCase = true;
+                this.doneList.length ? this.isEmpty = false : this.isEmpty = true;
+                break;
+        }
+
+        const dialogRef = this.dialog.open(ConfirmModalComponent, {
+            width: '300px',
+            data: {
+                doneCase: this.doneCase,
+                isEmpty: this.isEmpty
+            }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log(`Dialog result: ${result}`);
+            if (result) {
+                this.doneCase ? this.deleteCompletedTasks(doneList) : this.makeAllDone();
+            }
+        });
+    }
+
     getAllTasks() {
         this.apiService.getTasks().subscribe((tasks) => {
             if (tasks.length) {
@@ -54,12 +85,12 @@ export class TodoListComponent implements OnInit {
         });
     }
 
-    getTask(item: ITodoListItem) {
-        this.apiService.getTaskById(item.id).subscribe((result) => {
-            this.task = result;
-            console.log(result);
-        });
-    }
+    // getTask(item: ITodoListItem) {
+    //     this.apiService.getTaskById(item.id).subscribe((result) => {
+    //         this.task = result;
+    //         console.log(result);
+    //     });
+    // }
 
     changeIsCompleted(item: ITodoListItem) {
         item.isCompleted = !item.isCompleted;
@@ -79,16 +110,18 @@ export class TodoListComponent implements OnInit {
         });
     }
 
-    deleteAllTasks() {
-        this.apiService.deleteAllTasks().subscribe((result) => {
-            console.log(result);
-            this.getAllTasks();
+    deleteCompletedTasks(doneList: ITodoListItem[]) {
+        this.apiService.deleteCompletedTasks().subscribe((result) => {
+            doneList.forEach(item => item.isDeleted = !item.isDeleted);
+            setTimeout(() => {
+                this.getAllTasks();
+            }, 500);
         });
     }
 
     makeAllDone() {
         this.apiService
-            .markAllDone()
+            .makeAllDone()
             .pipe(finalize(() => {
                 console.log('pipe (finalize)')
             }))

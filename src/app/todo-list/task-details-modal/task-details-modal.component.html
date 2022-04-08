@@ -2,7 +2,7 @@
     <div *ngIf="!isEditorMode else editorMode" class="modal-container--top">
         <div class="modal-container__item">
             <h3 class="modal-container__title">Task</h3>
-            <p class="modal-container__text">{{this.data.name}}</p>
+            <p class="modal-container__text">{{this.data.name.trim() ? this.data.name : 'Task Name'}}</p>
         </div>
         <div class="modal-container__item">
             <h3 class="modal-container__title">Description</h3>

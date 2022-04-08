@@ -14,6 +14,7 @@ import { TaskDetailsModalComponent } from './todo-list/task-details-modal/task-d
 
 import { ApiService } from './service/api.service';
 import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
+import { ConfirmModalComponent } from './todo-list/confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http'
     FooterComponent,
     TodoInputComponent,
     TodoListComponent,
-    TaskDetailsModalComponent
+    TaskDetailsModalComponent,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserModule,

@@ -56,9 +56,9 @@
             <mat-icon class="edit-icon">edit</mat-icon>
         </button>
         <div>
-            <button mat-flat-button [mat-dialog-close]="false" color="primary">Close</button>
+            <button mat-flat-button [mat-dialog-close]="false" class="modal-btn">Close</button>
             <button *ngIf="isEditorMode" type="submit" mat-flat-button [mat-dialog-close]="true" cdkFocusInitial
-                color="primary" [disabled]="taskForm.invalid" (click)="updateTask(data)">Save</button>
+                class="modal-btn" [disabled]="taskForm.invalid" (click)="updateTask(data)">Save</button>
         </div>
     </mat-dialog-actions>
 </div>

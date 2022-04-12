@@ -27,9 +27,9 @@ button {
     transition: .1s ease-in-out;
 }
 
-$black: #222;
-$addBlack: #ccc;
-$addWhite: #eee;
+$black: #1d1d1d;
+$addBlack: #e4e4e4;
+$addWhite: #f2f2f2;
 $white: #fff;
 
 .body {
@@ -44,7 +44,8 @@ $white: #fff;
 
 .footer,
 .input-container__btn,
-.todo-list__title-container {
+.todo-list__title-container,
+.modal-btn {
     color: $white;
     background: $black;
 }
@@ -68,4 +69,58 @@ $white: #fff;
 .modal-container__item {
     color: $black;
     background: $addWhite;
+}
+
+.body.active {
+    color: $black;
+    background: $addBlack;
+
+    .todo-list__item {
+        color: $white;
+        background: $black;
+    }
+    
+    .footer,
+    .modal-btn {
+        color: $white;
+        background: $black;
+    }
+
+    .todo-list__title-container {
+        background: $white;
+    }
+    
+    .todo-list__title {
+        color: $black;
+    }
+
+    .input-container__btn {
+        color: $black;
+        background: $white;
+    }
+    
+    .input-container__btn:hover {
+        color: $black;
+        background: $addWhite;
+    }
+    
+    .done-btn:hover {
+        .todo-list__title {
+            color: $black;
+        }
+        background: $addBlack;
+    }
+    
+    .modal-container__item {
+        color: $black;
+        background: $addBlack;
+    }
+
+    .table {
+        background: $black;
+        td, th {
+            color: $white;
+        }
+        
+    }
 }

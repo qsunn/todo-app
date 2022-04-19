@@ -13,14 +13,14 @@ export class TaskDetailsModalComponent implements OnInit {
     isEditorMode = false;
     today = new Date();
     taskForm: FormGroup;
-    
+
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: ITodoListItem,
         private fb: FormBuilder,
         private apiService: ApiService
     ) {
         this.taskForm = this.fb.group({
-            name: new FormControl('', Validators.required),
+            name: new FormControl('', [Validators.required, this.noWhitespaceValidator]),
             description: new FormControl(''),
             importance: new FormControl(''),
             deadline: new FormControl(''),
@@ -31,6 +31,11 @@ export class TaskDetailsModalComponent implements OnInit {
         if (this.data) {
             this.setFormValue();
         }
+    }
+
+    public noWhitespaceValidator(control: FormControl) {
+        const isWhitespace = (control.value || '').trim().length === 0;
+        return !isWhitespace ? null : { 'whitespace': true };
     }
 
     setFormValue() {
@@ -47,11 +52,9 @@ export class TaskDetailsModalComponent implements OnInit {
     }
 
     updateTask(item: ITodoListItem) {
-        this.apiService
-            .updateTask(item.id, this.taskForm.value)
-            .subscribe((result) => {
-                console.log(result);
-            });
+        this.apiService.updateTask(item.id, this.taskForm.value).subscribe((result) => {
+            console.log(result);
+        });
     }
 
 }

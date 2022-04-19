@@ -5,13 +5,28 @@
     <nav class="header__nav">
         <ul class="header__nav__list">
             <li class="header__nav__list--item">
-                <a href="#">About</a>
+                <a [routerLink]="tableToggle ? '/data-table' : ''" (click)="tableToggler()" matTooltip="Table View">
+                    <mat-icon class="material-icons-outlined" *ngIf="tableToggle else tableView">
+                        table_rows
+                    </mat-icon>
+                    <ng-template #tableView>
+                        <mat-icon class="material-icons-outlined">
+                            checklist_rtl
+                        </mat-icon>
+                    </ng-template>
+                </a>
             </li>
             <li class="header__nav__list--item">
-                <a href="#">Help</a>
-            </li>
-            <li class="header__nav__list--item">
-                <a href="#">Contacts</a>
+                <a (click)="modeToggler()" matTooltip="Day/Night Mode">
+                    <mat-icon class="material-icons-outlined" *ngIf="modeToggle else lightMode">
+                        dark_mode
+                    </mat-icon>
+                    <ng-template #lightMode>
+                        <mat-icon class="material-icons-outlined">
+                            light_mode
+                        </mat-icon>
+                    </ng-template>
+                </a>
             </li>
         </ul>
     </nav>

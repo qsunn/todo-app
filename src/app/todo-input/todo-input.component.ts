@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { ApiService } from '../service/api.service';
 
 @Component({
@@ -10,17 +10,24 @@ import { ApiService } from '../service/api.service';
 export class TodoInputComponent implements OnInit {
     @Output() taskCreated: EventEmitter<any> = new EventEmitter();
 
-    inputValue = new FormControl('');
+    inputValue: FormControl;
     today = new Date();
     deadline = new Date();
 
 
-    constructor(private apiService: ApiService) {}
+    constructor(private apiService: ApiService) {
+        this.inputValue = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
+    }
 
     ngOnInit(): void {}
 
     clearInput() {
         this.inputValue.setValue('');
+    }
+
+    public noWhitespaceValidator(control: FormControl) {
+        const isWhitespace = (control.value || '').trim().length === 0;
+        return !isWhitespace ? null : { 'whitespace': true };
     }
 
     createTask() {

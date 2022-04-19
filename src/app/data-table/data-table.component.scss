@@ -1,0 +1,22 @@
+.table-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 160px 160px;
+    width: 100%;
+    .table {
+        width: 100%;
+    }
+}
+
+@media (max-width: 840px) {
+    .table-container {
+        padding: 0 40px;
+    }
+}
+
+@media (max-width: 420px) {
+    .table-container {
+        padding: 0 24px;
+    }
+}

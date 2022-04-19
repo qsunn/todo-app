@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -13,7 +15,9 @@ import { TodoListComponent } from './todo-list/todo-list.component';
 import { TaskDetailsModalComponent } from './todo-list/task-details-modal/task-details-modal.component';
 
 import { ApiService } from './service/api.service';
-import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ConfirmModalComponent } from './todo-list/confirm-modal/confirm-modal.component';
+import { DataTableComponent } from './data-table/data-table.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,9 @@ import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http'
     FooterComponent,
     TodoInputComponent,
     TodoListComponent,
-    TaskDetailsModalComponent
+    TaskDetailsModalComponent,
+    ConfirmModalComponent,
+    DataTableComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +37,9 @@ import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http'
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [ApiService, HttpClient],
   bootstrap: [AppComponent]

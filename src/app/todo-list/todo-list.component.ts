@@ -45,30 +45,34 @@ export class TodoListComponent implements OnInit {
     }
 
     openConfirmModal(event: any, doneList: ITodoListItem[]) {
+        let text!: String;
+        let title!: String;
         switch (event.target.innerText) {
             case 'Todo': 
                 this.doneCase = false;
                 this.todoList.length ? this.isEmpty = false : this.isEmpty = true;
+                this.isEmpty ? title = 'No tasks' : title = 'Are you sure?';
+                this.isEmpty ? text = 'No todo tasks' : text = 'Move all tasks to done';
                 break;
             case 'Done':
                 this.doneCase = true;
                 this.doneList.length ? this.isEmpty = false : this.isEmpty = true;
+                this.isEmpty ? title = 'No tasks' : title = 'Are you sure?';
+                this.isEmpty ? text = 'No done tasks' : text = 'Delete all done tasks';
                 break;
         }
 
         const dialogRef = this.dialog.open(ConfirmModalComponent, {
             width: '300px',
             data: {
-                doneCase: this.doneCase,
-                isEmpty: this.isEmpty
+                title: title,
+                text: text
             }
         });
 
-        dialogRef.afterClosed().subscribe(result => {
+        dialogRef.componentInstance.onConfirm.subscribe(result => {
             console.log(`Dialog result: ${result}`);
-            if (result) {
-                this.doneCase ? this.deleteCompletedTasks(doneList) : this.makeAllDone();
-            }
+            this.doneCase ? this.deleteCompletedTasks(doneList) : this.makeAllDone();
         });
     }
 

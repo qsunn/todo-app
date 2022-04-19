@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-confirm-modal',
@@ -7,12 +7,29 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./confirm-modal.component.scss']
 })
 export class ConfirmModalComponent implements OnInit {
+  @Output() onConfirm: EventEmitter<any> = new EventEmitter();
+  @Output() onReject: EventEmitter<any> = new EventEmitter();
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { doneCase: Boolean, isEmpty: Boolean }
+    private dialogRef: MatDialogRef<ConfirmModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { title: String, text: String }
   ) { }
 
   ngOnInit(): void {
+  }
+
+  confirm() {
+    this.onConfirm.emit();
+    this.close();
+  }
+
+  reject() {
+    this.onReject.emit();
+    this.close();
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 
 }

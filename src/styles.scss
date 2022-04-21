@@ -123,4 +123,9 @@ $white: #fff;
         }
         
     }
+
+    mat-paginator {
+        color: $white;
+        background: $black;
+    }
 }

@@ -1,11 +1,5 @@
 <app-header (tableToggleResult)="tableToggler($event)" (modeToggleResult)="modeToggler($event)"></app-header>
-<main class="container" *ngIf="tableToggle else tableView">
-    <h1 class="container__title">
-        What To Do?
-    </h1>
-    <app-todo-list></app-todo-list>
-</main>
-<ng-template #tableView>
+<div>
     <router-outlet></router-outlet>
-</ng-template>
+</div>
 <app-footer></app-footer>

@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { ApiService } from '../service/api.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
     selector: 'app-todo-input',

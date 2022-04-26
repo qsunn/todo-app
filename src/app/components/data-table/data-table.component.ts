@@ -1,8 +1,8 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ApiService } from '../service/api.service';
-import { ITodoListItem } from '../todo-list/todo-list.model';
+import { ApiService } from '../../services/api.service';
+import { ITodoListItem } from '../../todo-list/todo-list.model';
 
 @Component({
   selector: 'app-data-table',

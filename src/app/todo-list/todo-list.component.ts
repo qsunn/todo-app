@@ -8,7 +8,7 @@ import { ITodoListItem } from './todo-list.model';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskDetailsModalComponent } from './task-details-modal/task-details-modal.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
-import { ApiService } from '../service/api.service';
+import { ApiService } from '../services/api.service';
 import { finalize } from 'rxjs';
 
 @Component({

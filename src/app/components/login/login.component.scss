@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 24px;
+    border-radius: 4px;
+    margin-top: 80px;
+
+    &__header {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 16px;
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        &--field {
+            margin-bottom: 8px;
+        }
+        &--btn {
+            margin-top: 8px;
+        }
+    }
+}

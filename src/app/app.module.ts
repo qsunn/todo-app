@@ -6,17 +6,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { TodoInputComponent } from './todo-input/todo-input.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { TodoInputComponent } from './components/todo-input/todo-input.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { TaskDetailsModalComponent } from './todo-list/task-details-modal/task-details-modal.component';
 
-import { ApiService } from './service/api.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ApiService } from './services/api.service';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ConfirmModalComponent } from './todo-list/confirm-modal/confirm-modal.component';
-import { DataTableComponent } from './data-table/data-table.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { DataTableComponent } from './components/data-table/data-table.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { LoginComponent } from './components/login/login.component';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { ErrorInterceptor } from './helpers/error.interceptor';
+import { fakeBackendProvider } from './helpers/fake-backend.interceptor';
 
 @NgModule({
   declarations: [
@@ -28,7 +33,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
     TaskDetailsModalComponent,
     ConfirmModalComponent,
     DataTableComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    UserListComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +46,11 @@ import { NotFoundComponent } from './not-found/not-found.component';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [ApiService, HttpClient],
+  providers: [ApiService, HttpClient,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    fakeBackendProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

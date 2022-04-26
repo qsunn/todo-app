@@ -1,5 +1,12 @@
-html, body { height: 100%; width: 100%; }
-body { font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 * {
     box-sizing: border-box;
@@ -63,12 +70,27 @@ $white: #fff;
     .todo-list__title {
         color: $black;
     }
+
     background: $addBlack;
 }
 
 .modal-container__item {
     color: $black;
     background: $addWhite;
+}
+
+.card {
+    border: 1px solid $black;
+}
+
+.card__body--btn {
+    color: $white;
+    background: $black;
+
+    &:hover {
+        color: $black;
+        background: $white;
+    }
 }
 
 .body.active {
@@ -79,7 +101,7 @@ $white: #fff;
         color: $white;
         background: $black;
     }
-    
+
     .footer,
     .modal-btn {
         color: $white;
@@ -89,7 +111,7 @@ $white: #fff;
     .todo-list__title-container {
         background: $white;
     }
-    
+
     .todo-list__title {
         color: $black;
     }
@@ -98,19 +120,20 @@ $white: #fff;
         color: $black;
         background: $white;
     }
-    
+
     .input-container__btn:hover {
         color: $black;
         background: $addWhite;
     }
-    
+
     .done-btn:hover {
         .todo-list__title {
             color: $black;
         }
+
         background: $addBlack;
     }
-    
+
     .modal-container__item {
         color: $black;
         background: $addBlack;
@@ -118,10 +141,12 @@ $white: #fff;
 
     .table {
         background: $black;
-        td, th {
+
+        td,
+        th {
             color: $white;
         }
-        
+
     }
 
     mat-paginator {

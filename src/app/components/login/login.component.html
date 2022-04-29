@@ -19,7 +19,7 @@
                 </mat-error>
             </mat-form-field>
             <mat-error *ngIf="error" style="font-size: 12px;">{{error}}</mat-error>
-            <button mat-flat-button [disabled]="loading" class="card__body--btn">
+            <button mat-flat-button color="primary" [disabled]="loading" class="card__body--btn">
                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                 Login
             </button>

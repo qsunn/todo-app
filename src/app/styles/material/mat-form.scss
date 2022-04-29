@@ -1,0 +1,25 @@
+.modal-form {
+    width: 100%;
+}
+  
+.modal-full-width {
+    width: 100%;
+}
+
+.modal-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+    margin-top: 16px;
+}
+
+.edit-icon {
+    font-size: 18px;
+    padding-top: 4px;
+}
+
+mat-form-field {
+    width: 100%;
+}

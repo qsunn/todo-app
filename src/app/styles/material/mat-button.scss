@@ -1,0 +1,38 @@
+.todo-list {
+    &__title-container {
+        width: 100%;
+        padding: 4px 0 !important;
+        border-radius: 4px !important;
+        margin-bottom: 16px !important;
+        font-size: 16px;
+        font-weight: 500;
+    }
+    &__item {
+        width: 100%;
+        position: relative;
+        text-align: center;
+        padding: 2px 0 !important;
+        border-radius: 4px !important;
+        font-weight: 400 !important;
+        margin-bottom: 16px;
+        cursor: grab;
+        &:active {
+            cursor: grabbing;
+        }
+        &.deletion {
+            animation: opacity .5s ease-in-out;
+        }
+    }
+    &__delete-btn {
+        position: absolute;
+        right: 4px;
+        bottom: 3px;
+    }
+    .delete-icon {
+        font-size: 16px;
+    }
+}
+
+.input-container__btn {
+    padding: 2px 16px !important;
+}

@@ -21,44 +21,7 @@
     column-gap: 16px;
     width: 100%;
     margin-bottom: 112px;
-    &__title {
-        text-align: center;
-        font-size: 16px;
-        font-weight: 500;
-        margin: 0;
-    }
-    &__title-container {
-        width: 100%;
-        padding: 4px 0;
-        border-radius: 4px;
-        margin-bottom: 16px;
-    }
-    &__item {
-        position: relative;
-        text-align: center;
-        width: 100%;
-        padding: 10px 16px;
-        font-size: 15px;
-        border-radius: 4px;
-        font-weight: 400;
-        margin-bottom: 16px;
-        overflow: hidden;
-        cursor: grab;
-        &:active {
-            cursor: grabbing;
-        }
-        &.deletion {
-            animation: opacity .5s ease-in-out;
-        }
-    }
-    &__delete-btn {
-        position: absolute;
-        right: 4px;
-        bottom: 3px;
-    }
-    .delete-icon {
-        font-size: 16px;
-    }
+    
 }
   
 .task-list {

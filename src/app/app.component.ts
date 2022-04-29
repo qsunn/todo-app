@@ -12,9 +12,9 @@ export class AppComponent {
   modeToggler(event: Boolean) {
     this.modeToggle = event;
     if (!this.modeToggle) {
-      window.document.body.classList.add('active');
+      window.document.body.classList.add('my-dark-theme');
     } else {
-      window.document.body.classList.remove('active');
+      window.document.body.classList.remove('my-dark-theme');
     };
   }
 }

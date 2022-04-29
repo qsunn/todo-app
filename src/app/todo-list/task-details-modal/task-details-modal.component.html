@@ -1,20 +1,26 @@
 <div class="modal-container">
-    <div *ngIf="!isEditorMode else editorMode" class="modal-container--top">
+    <div *ngIf="!isEditorMode; else editorMode" class="modal-container--top">
         <div class="modal-container__item">
             <h3 class="modal-container__title">Task</h3>
-            <p class="modal-container__text">{{this.data.name.trim() ? this.data.name : 'Task Name'}}</p>
+            <p class="modal-container__text">
+                {{ this.data.name.trim() ? this.data.name : "Task Name" }}
+            </p>
         </div>
         <div class="modal-container__item">
             <h3 class="modal-container__title">Description</h3>
-            <p class="modal-container__text">{{this.data.description ? this.data.description : '-'}}</p>
+            <p class="modal-container__text">
+                {{ this.data.description ? this.data.description : "-" }}
+            </p>
         </div>
         <div class="modal-container__item">
             <h3 class="modal-container__title">Importance</h3>
-            <p class="modal-container__text">{{this.data.importance}}</p>
+            <p class="modal-container__text">{{ this.data.importance }}</p>
         </div>
         <div class="modal-container__item">
             <h3 class="modal-container__title">Deadline</h3>
-            <p class="modal-container__text">{{this.data.deadline.toString() | date: 'dd/MM/yyyy'}}</p>
+            <p class="modal-container__text">
+                {{ this.data.deadline.toString() | date: "dd/MM/yyyy" }}
+            </p>
         </div>
     </div>
     <ng-template #editorMode>
@@ -23,9 +29,7 @@
                 <mat-form-field class="modal-full-width" appearance="fill">
                     <mat-label>Task name:</mat-label>
                     <input matInput required placeholder="Task name" name="name" formControlName="name">
-                    <mat-error>
-                        Name can't be empty.
-                    </mat-error>
+                    <mat-error>Name can't be empty.</mat-error>
                 </mat-form-field>
                 <mat-form-field class="modal-full-width" appearance="fill">
                     <mat-label>Task description:</mat-label>
@@ -42,7 +46,7 @@
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>Deadline:</mat-label>
-                    <input matInput [matDatepicker]="picker" [min]="today" name="deadline" formControlName="deadline">
+                    <input matInput [matDatepicker]="picker" [min]="today" name="deadline" formControlName="deadline" />
                     <mat-datepicker-toggle matSuffix [for]="picker">
                         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                     </mat-datepicker-toggle>
@@ -56,9 +60,11 @@
             <mat-icon class="edit-icon">edit</mat-icon>
         </button>
         <div>
-            <button mat-flat-button [mat-dialog-close]="false" class="modal-btn">Close</button>
-            <button *ngIf="isEditorMode" type="submit" mat-flat-button [mat-dialog-close]="true" cdkFocusInitial
-                class="modal-btn" [disabled]="taskForm.invalid" (click)="updateTask(data)">Save</button>
+            <button mat-flat-button color="primary" [mat-dialog-close]="false">Close</button>
+            <button *ngIf="isEditorMode" type="submit" mat-flat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial
+                [disabled]="taskForm.invalid" (click)="updateTask(data)">
+                Save
+            </button>
         </div>
     </mat-dialog-actions>
 </div>

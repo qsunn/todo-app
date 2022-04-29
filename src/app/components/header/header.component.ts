@@ -33,6 +33,7 @@ export class HeaderComponent implements OnInit {
 
   tableToggler() {
     this.tableToggle = !this.tableToggle;
+    this.usersToggle = true;
   }
 
   modeToggler() {
@@ -42,6 +43,12 @@ export class HeaderComponent implements OnInit {
 
   usersToggler() {
     this.usersToggle = !this.usersToggle;
+    this.tableToggle = true;
+  }
+
+  iconsReset() {
+    this.usersToggle = true;
+    this.tableToggle = true;
   }
 
 }

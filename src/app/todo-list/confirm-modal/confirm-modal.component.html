@@ -8,16 +8,16 @@
         </p>
     </mat-dialog-content>
     <mat-dialog-actions *ngIf="data.title !== 'No tasks' else noTasks">
-        <button mat-button [mat-dialog-close]="false" (click)="reject()">
+        <button mat-button color="primary" [mat-dialog-close]="false" (click)="reject()">
             Nah
         </button>
-        <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="confirm()">
+        <button mat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="confirm()">
             Yeah
         </button>
     </mat-dialog-actions>
     <ng-template #noTasks>
         <mat-dialog-actions>
-            <button mat-button mat-dialog-close cdkFocusInitial>
+            <button mat-button color="primary" mat-dialog-close cdkFocusInitial>
                 Okay
             </button>
         </mat-dialog-actions>

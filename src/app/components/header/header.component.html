@@ -1,0 +1,54 @@
+<header class="header">
+    <div class="header__logo">
+        <a routerLink="/todoq" (click)="iconsReset()">ToDoQ</a>
+    </div>
+    <nav class="header__nav">
+        <ul class="header__nav__list">
+            <li class="header__nav__list--item" *ngIf="currentUser">
+                <a [routerLink]="tableToggle ? '/data-table' : '/todoq'" (click)="tableToggler()"
+                    matTooltip="Table / List">
+                    <mat-icon class="material-icons-outlined header-icon" *ngIf="tableToggle else tableView">
+                        table_rows
+                    </mat-icon>
+                    <ng-template #tableView>
+                        <mat-icon class="material-icons-outlined header-icon">
+                            checklist_rtl
+                        </mat-icon>
+                    </ng-template>
+                </a>
+            </li>
+            <li class="header__nav__list--item" *ngIf="currentUser">
+                <a class="nav-item nav-link" [routerLink]="usersToggle ? '/users' : '/todoq'" routerLinkActive="active"
+                    matTooltip="Users / List" (click)="usersToggler()">
+                    <mat-icon class="material-icons-outlined header-icon" *ngIf="usersToggle else backToTable">
+                        face
+                    </mat-icon>
+                    <ng-template #backToTable>
+                        <mat-icon class="material-icons-outlined header-icon">
+                            checklist_rtl
+                        </mat-icon>
+                    </ng-template>
+                </a>
+            </li>
+            <li class="header__nav__list--item">
+                <a (click)="modeToggler()" matTooltip="Day / Night Mode">
+                    <mat-icon class="material-icons-outlined header-icon" *ngIf="modeToggle else lightMode">
+                        dark_mode
+                    </mat-icon>
+                    <ng-template #lightMode>
+                        <mat-icon class="material-icons-outlined header-icon">
+                            light_mode
+                        </mat-icon>
+                    </ng-template>
+                </a>
+            </li>
+            <li class="header__nav__list--item" *ngIf="currentUser" matTooltip="Logout">
+                <a class="nav-item nav-link" (click)="logout()">
+                    <mat-icon class="material-icons-outlined header-icon">
+                        logout
+                    </mat-icon>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>

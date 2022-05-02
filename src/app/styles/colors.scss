@@ -1,0 +1,78 @@
+@use '@angular/material'as mat;
+
+@include mat.core();
+
+$light-primary: mat.define-palette(mat.$indigo-palette);
+$light-accent: mat.define-palette(mat.$pink-palette);
+$light-theme: mat.define-light-theme((color: (primary: $light-primary, accent: $light-accent)));
+
+$dark-primary: mat.define-palette(mat.$blue-grey-palette);
+$dark-accent: mat.define-palette(mat.$pink-palette);
+$dark-theme: mat.define-dark-theme((color: (primary: $dark-primary,accent: $dark-accent)));
+
+@include mat.core-theme($light-theme);
+@include mat.button-theme($light-theme);
+
+.my-dark-theme {
+    @include mat.core-color($dark-theme);
+    @include mat.button-color($dark-theme);
+}
+
+$black: #1d1d1d;
+$white: #fff;
+
+.body {
+    color: $black;
+    background: mat.get-color-from-palette($light-primary, 'lighter');
+}
+
+.todo-list__item {
+    background: $white;
+
+    &--btn {
+        color: inherit !important;
+        background: inherit !important;
+    }
+}
+
+.input-container__btn:hover,
+.done-btn:hover,
+.card__body--btn:hover {
+    background: mat.get-color-from-palette($light-primary, 'darker');
+}
+
+.modal-container__item {
+    background: mat.get-color-from-palette($light-primary, 'lighter');
+}
+
+.mat-form-field-flex {
+    background: mat.get-color-from-palette($light-primary, 'lighter') !important;
+}
+
+.card {
+    border: 1px solid $black;
+}
+
+.footer {
+    color: $white;
+    background: $black;
+}
+
+.body.my-dark-theme {
+    background: mat.get-color-from-palette($dark-primary, 'lighter');
+
+    .input-container__btn:hover,
+    .done-btn:hover,
+    .card__body--btn:hover {
+        background: mat.get-color-from-palette($dark-primary, 'darker');
+    }
+
+    .modal-container__item {
+        color: $black;
+        background: mat.get-color-from-palette($dark-primary, 'lighter');
+    }
+
+    .mat-form-field-flex {
+        background: mat.get-color-from-palette($dark-primary, 'lighter') !important;
+    }
+}

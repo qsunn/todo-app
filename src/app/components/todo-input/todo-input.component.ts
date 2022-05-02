@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { ApiService } from '../service/api.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
     selector: 'app-todo-input',
@@ -19,7 +19,7 @@ export class TodoInputComponent implements OnInit {
         this.inputValue = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 
     clearInput() {
         this.inputValue.setValue('');
@@ -31,24 +31,26 @@ export class TodoInputComponent implements OnInit {
     }
 
     createTask() {
-        this.deadline.setDate(this.today.getDate() + 1);
-        let input = {
-            name: this.inputValue.value,
-            description: '-',
-            importance: 'Easy',
-            deadline: this.deadline,
-            isDeleted: false,
-            isCompleted: false,
-        };
-        this.apiService.createTask(input).subscribe({
-            next: result => {
-            console.log(result);
-            this.clearInput();
-            this.taskCreated.emit();
-            },
-            error: error => {
-                console.log('Empty input');
-            }
-        });
+        if (this.inputValue.valid) {
+            this.deadline.setDate(this.today.getDate() + 1);
+            let input = {
+                name: this.inputValue.value,
+                description: '-',
+                importance: 'Easy',
+                deadline: this.deadline,
+                isDeleted: false,
+                isCompleted: false,
+            };
+            this.apiService.createTask(input).subscribe({
+                next: result => {
+                    console.log(result);
+                    this.clearInput();
+                    this.taskCreated.emit();
+                },
+                error: error => {
+                    console.log('Empty input');
+                }
+            });
+        }
     }
 }

@@ -8,7 +8,7 @@ import { ITodoListItem } from './todo-list.model';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskDetailsModalComponent } from './task-details-modal/task-details-modal.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
-import { ApiService } from '../service/api.service';
+import { ApiService } from '../services/api.service';
 import { finalize } from 'rxjs';
 
 @Component({
@@ -22,7 +22,6 @@ export class TodoListComponent implements OnInit {
 
     doneCase!: Boolean;
     isEmpty!: Boolean;
-    // task!: ITodoListItem;
 
     constructor(public dialog: MatDialog, private apiService: ApiService) { }
 
@@ -85,16 +84,8 @@ export class TodoListComponent implements OnInit {
                 this.todoList = [];
                 this.doneList = [];
             }
-            console.log(tasks);
         });
     }
-
-    // getTask(item: ITodoListItem) {
-    //     this.apiService.getTaskById(item.id).subscribe((result) => {
-    //         this.task = result;
-    //         console.log(result);
-    //     });
-    // }
 
     changeIsCompleted(item: ITodoListItem) {
         item.isCompleted = !item.isCompleted;
@@ -108,18 +99,14 @@ export class TodoListComponent implements OnInit {
         this.apiService.deleteTaskById(item.id).subscribe((result) => {
             console.log(result);
             item.isDeleted = !item.isDeleted;
-            setTimeout(() => {
-                this.getAllTasks();
-            }, 500);
+            this.getAllTasks();
         });
     }
 
     deleteCompletedTasks(doneList: ITodoListItem[]) {
         this.apiService.deleteCompletedTasks().subscribe((result) => {
             doneList.forEach(item => item.isDeleted = !item.isDeleted);
-            setTimeout(() => {
-                this.getAllTasks();
-            }, 500);
+            this.getAllTasks();
         });
     }
 

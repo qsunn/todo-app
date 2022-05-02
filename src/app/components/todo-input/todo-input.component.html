@@ -7,6 +7,6 @@
             <mat-icon>close</mat-icon>
         </button>
     </div>
-    <button mat-flat-button type="submit" class="input-container__btn" (click)="createTask()" matTooltip="Add Task"
-        matTooltipPosition="above">Add</button>
+    <button mat-flat-button color="primary" type="submit" class="input-container__btn" (click)="createTask()" matTooltip="Add Task"
+        matTooltipPosition="above" [disabled]="inputValue.invalid">Add</button>
 </div>

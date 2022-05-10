@@ -59,10 +59,10 @@
         <button type="button" (click)="editorModeChange()">
             <mat-icon class="edit-icon">edit</mat-icon>
         </button>
-        <div>
+        <div class="modal-actions">
             <button mat-flat-button color="primary" [mat-dialog-close]="false">Close</button>
-            <button *ngIf="isEditorMode" type="submit" mat-flat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial
-                [disabled]="taskForm.invalid" (click)="updateTask(data)">
+            <button *ngIf="isEditorMode" type="submit" mat-flat-button color="primary" [mat-dialog-close]="true"
+                cdkFocusInitial [disabled]="taskForm.invalid" (click)="updateTask(data)">
                 Save
             </button>
         </div>

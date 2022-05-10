@@ -1,5 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TodoListComponent } from 'src/app/todo-list/todo-list.component';
+import { ITodoListItem } from 'src/app/todo-list/todo-list.model';
 import { ApiService } from '../../services/api.service';
 
 @Component({
@@ -14,12 +17,21 @@ export class TodoInputComponent implements OnInit {
     today = new Date();
     deadline = new Date();
 
-
-    constructor(private apiService: ApiService) {
+    constructor(
+        private apiService: ApiService,
+        private snackBar: MatSnackBar
+    ) {
         this.inputValue = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
     }
 
     ngOnInit(): void { }
+
+    openSnackBar(message: string) {
+        this.snackBar.open(message, '', {
+            duration: 4000,
+            panelClass: ['snackbar']
+        });
+    }
 
     clearInput() {
         this.inputValue.setValue('');
@@ -43,9 +55,9 @@ export class TodoInputComponent implements OnInit {
             };
             this.apiService.createTask(input).subscribe({
                 next: result => {
-                    console.log(result);
                     this.clearInput();
                     this.taskCreated.emit();
+                    this.openSnackBar(`Task ${input.name} has been created`);
                 },
                 error: error => {
                     console.log('Empty input');

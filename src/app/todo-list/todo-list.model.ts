@@ -1,9 +1,9 @@
 export interface ITodoListItem {
     id: any;
-    name: String;
-    description: String;
-    importance: String;
-    deadline: Number;
-    isDeleted: Boolean;
-    isCompleted: Boolean;
+    name: string;
+    description: string;
+    importance: string;
+    deadline: number;
+    isDeleted: boolean;
+    isCompleted: boolean;
 }

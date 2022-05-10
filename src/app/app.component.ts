@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TodoListComponent } from './todo-list/todo-list.component';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'todo-app';
   modeToggle: Boolean = true;
+  search: String = '';
 
   modeToggler(event: Boolean) {
     this.modeToggle = event;
@@ -16,5 +18,9 @@ export class AppComponent {
     } else {
       window.document.body.classList.remove('my-dark-theme');
     };
+  }
+
+  searchResult(event: String) {
+    this.search = event;
   }
 }

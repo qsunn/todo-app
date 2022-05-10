@@ -22,6 +22,7 @@ import { LoginComponent } from './components/login/login.component';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { fakeBackendProvider } from './helpers/fake-backend.interceptor';
+import { TableComponent } from './components/data-table/table/table.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { fakeBackendProvider } from './helpers/fake-backend.interceptor';
     DataTableComponent,
     NotFoundComponent,
     UserListComponent,
-    LoginComponent
+    LoginComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,

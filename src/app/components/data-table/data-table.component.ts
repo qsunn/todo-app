@@ -1,5 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ApiService } from '../../services/api.service';
 import { ITodoListItem } from '../../todo-list/todo-list.model';
@@ -12,10 +11,23 @@ import { ITodoListItem } from '../../todo-list/todo-list.model';
 export class DataTableComponent implements OnInit {
 
   tasks: MatTableDataSource<ITodoListItem> = new MatTableDataSource<ITodoListItem>();
-  displayedColumns: String[] = ['position', 'name', 'description', 'importance', 'deadline', 'isCompleted', 'id'];
+  allTasks: MatTableDataSource<ITodoListItem> = new MatTableDataSource<ITodoListItem>();
+
   length!: number;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  tabs = [{
+    name: 'All',
+    data: new Array<ITodoListItem>()
+  }, {
+    name: 'Easy',
+    data: new Array<ITodoListItem>()
+  }, {
+    name: 'Medium',
+    data: new Array<ITodoListItem>()
+  }, {
+    name: 'Strong',
+    data: new Array<ITodoListItem>()
+  }];
 
   constructor(
     private apiService: ApiService
@@ -28,8 +40,10 @@ export class DataTableComponent implements OnInit {
   getAllTasks() {
     this.apiService.getTasks().subscribe(result => {
       result.length ? this.tasks = new MatTableDataSource<ITodoListItem>(result) : console.log('no tasks');
-      this.length = result.length;
-      this.tasks.paginator = this.paginator;
+      this.tabs[0].data = result;
+      this.tabs[1].data = result.filter(item => item.importance === 'Easy');
+      this.tabs[2].data = result.filter(item => item.importance === 'Medium');
+      this.tabs[3].data = result.filter(item => item.importance === 'Strong');
     })
   }
 

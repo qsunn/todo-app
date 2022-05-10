@@ -64,10 +64,8 @@ export class TodoListComponent implements OnInit {
             panelClass: [message === `Task ${item.name} has been deleted` ? 'snackbar-undo' : 'snackbar']
         });
         snackBarRef.afterDismissed().subscribe((result) => {
-            if (result.dismissedByAction && message === `Task ${item.name} has been deleted`) {
-                event.target.parentNode.parentNode.classList.remove('hidden');
-            } else {
-                this.deleteTask(item);
+            if (message === `Task ${item.name} has been deleted`) {
+                result.dismissedByAction ? event.target.parentNode.parentNode.classList.remove('hidden') : this.deleteTask(item);
             }
         });
     }
@@ -142,7 +140,7 @@ export class TodoListComponent implements OnInit {
     changeIsCompleted(item: ITodoListItem) {
         item.isCompleted = !item.isCompleted;
         this.apiService.updateTask(item.id, item).subscribe((result) => {
-            item.isCompleted ? this.openSnackBar(`Task ${item.name} has been moved to done list`, '', item, event) : this.openSnackBar(`Task ${item.name} has been moved back to todo list`, '', item, event)
+            item.isCompleted ? this.openSnackBar(`Task ${item.name} has been moved to done list`, '', item, '') : this.openSnackBar(`Task ${item.name} has been moved back to todo list`, '', item, '')
         });
     }
 
@@ -161,7 +159,7 @@ export class TodoListComponent implements OnInit {
         this.apiService.deleteCompletedTasks().subscribe((result) => {
             doneList.forEach(item => item.isDeleted = !item.isDeleted);
             this.getAllTasks();
-            this.openSnackBar(`Done tasks have been deleted`, '', result, event);
+            this.openSnackBar(`Done tasks have been deleted`, '', result, '');
         });
     }
 
@@ -174,7 +172,7 @@ export class TodoListComponent implements OnInit {
             .subscribe({
                 next: result => {
                     this.getAllTasks();
-                    this.openSnackBar(`All tasks have been moved to done list`, '', result, event);
+                    this.openSnackBar(`All tasks have been moved to done list`, '', result, '');
                     console.log('subscribe (result)')
                 },
                 error: error => {

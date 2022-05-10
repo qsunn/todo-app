@@ -49,8 +49,16 @@ $white: #fff;
     background: mat.get-color-from-palette($light-primary, 'lighter') !important;
 }
 
+.modal-actions .mat-button-disabled {
+    background: mat.get-color-from-palette($light-primary, 'lighter') !important;
+}
+
 .card {
     border: 1px solid $black;
+}
+
+.snackbar, .snackbar-undo {
+    background: mat.get-color-from-palette($light-primary, 'default');
 }
 
 .footer {
@@ -74,5 +82,13 @@ $white: #fff;
 
     .mat-form-field-flex {
         background: mat.get-color-from-palette($dark-primary, 'lighter') !important;
+    }
+
+    .modal-actions .mat-button-disabled {
+        background: mat.get-color-from-palette($dark-primary, 'lighter') !important;
+    }
+
+    .snackbar, .snackbar-undo {
+        background: mat.get-color-from-palette($dark-primary, 'default');
     }
 }

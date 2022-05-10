@@ -14,6 +14,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 const material = [
@@ -31,7 +34,10 @@ const material = [
   MatSortModule,
   MatCardModule,
   MatFormFieldModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatAutocompleteModule,
+  MatSnackBarModule,
+  MatTabsModule
 ]
 
 @NgModule({
